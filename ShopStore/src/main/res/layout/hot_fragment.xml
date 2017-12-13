@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:layout_width="match_parent" >
+        <RelativeLayout
+            android:id="@+id/sy_top"
+            android:layout_height="match_parent"
+            android:background="#ff8000"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
+            <RelativeLayout
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_alignParentLeft="true">
+                <ImageView
+                    android:id="@+id/fl_sys"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ss"
+                    />
+            </RelativeLayout>
+            <TextView
+                android:text="热点"
+                android:textSize="21sp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:id="@+id/fl_qh"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/fl_qh"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:layout_width="match_parent" >
+         <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            app:tabSelectedTextColor="#FF0000"
+            app:tabIndicatorHeight="0dp"
+            android:id="@+id/tabLayout"
+            android:layout_height="60dp"
+            app:tabTextColor="#000000"
+            app:tabMode="scrollable">
+        </android.support.design.widget.TabLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="4.4"
+        android:layout_height="0dp"
+        android:layout_width="match_parent" >
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+    <View
+        android:layout_height="3dp"
+        android:background="#ff8000"
+        android:visibility="visible"
+        android:padding="@dimen/margin_5dp"
+        android:layout_width="match_parent"></View>
+
+    <LinearLayout
+        android:layout_weight="4"
+        android:layout_height="0dp"
+        android:layout_width="match_parent" >
+
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/hot_XRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+    </LinearLayout>
+</LinearLayout>

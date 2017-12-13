@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fbfbfb"
+    >
+    <LinearLayout
+        android:id="@+id/sy_top"
+        android:layout_height="56dp"
+        android:background="#ff8000"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:layout_width="58dp"
+            android:layout_height="58dp">
+            <ImageView
+                android:id="@+id/fl_sys"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ss"
+                />
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/edit_query"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="38dp"
+            android:drawableLeft="@mipmap/ag1"
+            android:drawableRight="@mipmap/robot"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/abc"
+            android:hint="       无限精彩  尽等你来"
+            android:textSize="15sp"
+            />
+        <RelativeLayout
+            android:layout_width="58dp"
+            android:layout_height="58dp">
+            <ImageView
+                android:id="@+id/fl_qh"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/fl_qh"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/line">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fl_zuorv"
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_weight="2"
+                android:layout_height="0dp"
+                android:layout_width="match_parent" ></com.youth.banner.Banner>
+
+            <ExpandableListView
+                android:id="@+id/fl_yourv"
+                android:layout_weight="8"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                ></ExpandableListView>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+
+  <ImageView
+      android:layout_marginTop="10dp"
+      android:scaleType="fitXY"
+      android:layout_marginLeft="10dp"
+      android:src="@drawable/shaung12"
+      android:layout_width="600dp"
+      android:layout_height="180dp" />
+</LinearLayout>

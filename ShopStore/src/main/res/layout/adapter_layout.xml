@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_shopcart_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"  >
+
+        <View
+            android:background="@color/background_color"
+            android:layout_height="@dimen/margin_10dp"
+            android:layout_width="match_parent"
+            android:id="@+id/view"/>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical" >
+
+            <!-- 商店checkbox -->
+            <CheckBox
+                android:id="@+id/shop_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_15dp"
+                android:paddingRight="@dimen/margin_15dp"
+                android:paddingTop="@dimen/margin_10dp"
+                android:paddingBottom="@dimen/margin_10dp"
+                />
+
+            <!-- 商店信息 -->
+            <TextView
+                android:drawableLeft="@drawable/shopcart_shop"
+                android:id="@+id/tv_item_shopcart_shopname"
+                android:textColor="@color/cblack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/padding_5dp"
+                android:text="宝儿家服装"
+                android:padding="@dimen/padding_10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"  >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1dp"
+                android:background="@color/background_color"  />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <!-- 商品 checkbox -->
+                <CheckBox
+                    android:id="@+id/item_checkbox"
+                    android:layout_marginLeft="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"   />
+
+                <!-- 商品图片 -->
+                <ImageView
+                    android:id="@+id/item_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="标题"
+                        android:id="@+id/item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="@dimen/common_font_size_16" />
+
+                    <TextView
+                        android:text="描述"
+                        android:id="@+id/item_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#a39f7c"
+                        android:textSize="@dimen/common_font_size_14" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"   >
+
+                        <TextView
+                            android:text="现价"
+                            android:textStyle="bold"
+                            android:textColor="#f2953e"
+                            android:id="@+id/item_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/common_font_size_14" />
+
+                        <TextView
+                            android:text="原价"
+                            android:textColor="#9d977b"
+                            android:id="@+id/item_yuanjia"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/margin_10dp"
+                            android:textSize="@dimen/common_font_size_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <com.example.shop.customview.CustomJiaJian
+                            android:layout_marginLeft="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/plus_view_id" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/margin_1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/splitline_color"
+                    android:layout_marginTop="@dimen/padding_10dp"
+                    android:layout_marginBottom="@dimen/padding_10dp" />
+
+                <ImageView
+                    android:id="@+id/item_del"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_20dp"
+                    android:src="@drawable/shopcart_delete" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1dp"
+        android:background="@color/background_color" />
+</LinearLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F5F5F5"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/custom_fanhui"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/aa4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="商品详情"
+            android:textSize="23sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/custom_xq_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="560dp"
+            />
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/custom_xq_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apple iPhone 8 Plus"
+            android:textColor="#000"
+            android:textSize="23sp" />
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="30dp"
+            android:id="@+id/custom_xq_bargin_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="¥6688.00"
+            android:textColor="#000"
+            android:textSize="23sp" />
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="30dp"
+            android:id="@+id/custom_xq_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="¥6688.00"
+            android:textColor="#F23030"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="供应商"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="联系卖家"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="进入店铺"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/jiagou_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#f00"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="加入购物车"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+</LinearLayout>
