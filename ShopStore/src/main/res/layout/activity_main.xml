@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/jd_logo"      >
+    android:background="@drawable/jd_logo">
 
 <!--
     设置沉浸式    android:fitsSystemWindows="true"
 -->
 
-    <TextView
+<!--    <TextView
         android:id="@+id/time"
         android:textSize="15sp"
         android:textColor="#08ef10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"/>-->
+
+
+    <com.example.shop.customview.CountDownButton
+        android:layout_alignParentRight="true"
+        android:layout_height="66dp"
+        android:id="@+id/countdown2"
+        app:progressLineWidth="6dp"
+        android:layout_width="72dp"
+        android:textColor="#f41b03"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:totalTime="5000"
+        android:text="跳过" />
 
 </RelativeLayout>

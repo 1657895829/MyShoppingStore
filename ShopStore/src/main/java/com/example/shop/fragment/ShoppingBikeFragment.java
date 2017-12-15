@@ -57,7 +57,8 @@ public class ShoppingBikeFragment extends Fragment implements SelectCartViewList
             public void setTotal(String total, String num, boolean allCheck) {
                 //设置ui的改变
                 total_num.setText("共"+num+"件商品");//总数量
-                total_price.setText("总价：¥ "+total);//总价
+                Double aDouble = new Double(total);
+                total_price.setText(""+aDouble.intValue());//总价
                 if(allCheck){
                     quanxuan.setTag(2);
                     quanxuan.setBackgroundResource(R.drawable.shopcart_selected);

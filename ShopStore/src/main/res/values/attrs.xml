@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MyTextView" >
+        <attr name="progressBgColor" format="reference|color"/>
+        <attr name="progressColor" format="reference|color"/>
+        <attr name="progressLineWidth" format="dimension"/>
+        <attr name="circleBgColr" format="reference|color"/>
+        <attr name="circleEndColor" format="reference|color"/>
+        <attr name="totalTime" format="integer"/>
+        <attr name="delayTime" format="integer"/>
+    </declare-styleable>
+
+
+</resources>

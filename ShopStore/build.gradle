@@ -57,4 +57,6 @@ dependencies {
     compile files('libs/alipaySdk-20160516.jar')
     compile files('libs/xUtils-2.6.14.jar')
     compile 'com.android.support:design:25.3.1'
+
+    compile 'org.greenrobot:eventbus:3.1.1'
 }

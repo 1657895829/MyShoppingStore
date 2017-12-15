@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        fresco:failureImage="@drawable/load_error_image"
+        fresco:placeholderImage="@drawable/app_default"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:id="@+id/hot_image"
+        android:layout_width="188dp"
+        android:layout_height="188dp"/>
+
+    <LinearLayout
+        android:layout_height="117dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent" >
+        <TextView
+            android:text="手机"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:id="@+id/title"
+            android:layout_height="39dp"
+            android:layout_width="match_parent"  />
+
+        <RelativeLayout
+            android:layout_height="117dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" >
+            <TextView
+                android:text="价格"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#fc0303"
+                android:id="@+id/price_hot"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp" />
+
+            <Button
+                android:id="@+id/btn_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_alignBaseline="@+id/price_hot"
+                android:layout_alignBottom="@+id/price_hot"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="#fff"
+                android:text="看相似"
+                android:textColor="#767676"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

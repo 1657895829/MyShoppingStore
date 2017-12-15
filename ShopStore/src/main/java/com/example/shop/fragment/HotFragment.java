@@ -2,22 +2,15 @@ package com.example.shop.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.shop.R;
-import com.example.shop.adapter.HotAdapter;
-import com.example.shop.bean.ShouyeLunBoBean;
-import com.example.shop.presenter.MyPresenter1;
-import com.example.shop.view.ViewCallBack1;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +18,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//主页fragment
-public class HotFragment extends Fragment implements ViewCallBack1 {
+//热点fragment
+public class HotFragment extends Fragment {
     @Bind(R.id.tabLayout)
     TabLayout tabLayout;
-    @Bind(R.id.hot_XRecyclerView)
-    XRecyclerView hot_XRecyclerView;
     @Bind(R.id.viewPager)
     ViewPager viewPager;
-    private MyPresenter1 presenter1;
-    private HotAdapter adapter;
     private List<String> list;
-    private Handler handler = new Handler();
 
     @Nullable
     @Override
@@ -80,27 +68,27 @@ public class HotFragment extends Fragment implements ViewCallBack1 {
 
                 //判断所选的标题，进行传值显示（下面注释的代码可简写为下面一行代码）
                 Bundle bundle = new Bundle();
-                bundle.putString("name",list.get(position));
-                if (list.get(position).equals("头条")){
-                    bundle.putString("name","top");
-                }else if (list.get(position).equals("社会")){
-                    bundle.putString("name","shehui");
-                }else if (list.get(position).equals("国内")){
-                    bundle.putString("name","guonei");
-                }else if (list.get(position).equals("国际")){
-                    bundle.putString("name","guoji");
-                }else if (list.get(position).equals("娱乐")){
-                    bundle.putString("name","yule");
-                }else if (list.get(position).equals("军事")){
-                    bundle.putString("name","junshi");
-                }else if (list.get(position).equals("科技")){
-                    bundle.putString("name","keji");
-                }else if (list.get(position).equals("财经")){
-                    bundle.putString("name","caijing");
-                }else if (list.get(position).equals("时尚")){
-                    bundle.putString("name","shishang");
-                }else if (list.get(position).equals("体育")){
-                    bundle.putString("name","tiyu");
+                bundle.putString("name", list.get(position));
+                if (list.get(position).equals("头条")) {
+                    bundle.putString("name", "top");
+                } else if (list.get(position).equals("社会")) {
+                    bundle.putString("name", "shehui");
+                } else if (list.get(position).equals("国内")) {
+                    bundle.putString("name", "guonei");
+                } else if (list.get(position).equals("国际")) {
+                    bundle.putString("name", "guoji");
+                } else if (list.get(position).equals("娱乐")) {
+                    bundle.putString("name", "yule");
+                } else if (list.get(position).equals("军事")) {
+                    bundle.putString("name", "junshi");
+                } else if (list.get(position).equals("科技")) {
+                    bundle.putString("name", "keji");
+                } else if (list.get(position).equals("财经")) {
+                    bundle.putString("name", "caijing");
+                } else if (list.get(position).equals("时尚")) {
+                    bundle.putString("name", "shishang");
+                } else if (list.get(position).equals("体育")) {
+                    bundle.putString("name", "tiyu");
                 }
                 hot_child_fragment.setArguments(bundle);
                 return hot_child_fragment;
@@ -114,55 +102,6 @@ public class HotFragment extends Fragment implements ViewCallBack1 {
 
         //TabLyout要与ViewPager关联显示
         tabLayout.setupWithViewPager(viewPager);
-
-        //调用P层 设置适配器
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        hot_XRecyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new HotAdapter(getActivity());
-        hot_XRecyclerView.setAdapter(adapter);
-
-        presenter1 = new MyPresenter1(this);
-        presenter1.getLunBo();//获取数据
-
-        //XRecyclerview的上拉下拉方法
-        hot_XRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //在子线程内完成下拉加载数据
-                        presenter1.getLunBo();
-                        adapter.notifyDataSetChanged();
-                        hot_XRecyclerView.refreshComplete();
-                    }
-                }, 888);
-            }
-
-            @Override
-            public void onLoadMore() {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //在子线程内完成下拉加载数据
-                        presenter1.getLunBo();
-                        adapter.notifyDataSetChanged();
-                        hot_XRecyclerView.loadMoreComplete();
-                    }
-                }, 888);
-            }
-        });
-    }
-
-    @Override
-    public void success(ShouyeLunBoBean shouyeLunBoBean) {
-        //添加数据
-        adapter.addData(shouyeLunBoBean.getMiaosha().getList());
-    }
-
-    @Override
-    public void failure(Exception e) {
-        System.out.println("热点数据错误：" + e);
     }
 
     @Override
@@ -178,5 +117,4 @@ public class HotFragment extends Fragment implements ViewCallBack1 {
         Intent intent = new Intent(getActivity(), CaptureActivity.class);
         startActivity(intent);
     }
-
 }

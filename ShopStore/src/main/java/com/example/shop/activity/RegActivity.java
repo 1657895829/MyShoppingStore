@@ -1,5 +1,6 @@
 package com.example.shop.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -48,10 +49,15 @@ public class RegActivity extends AppCompatActivity implements RegViewListener{
                 //https://www.zhaoapi.cn/user/reg?mobile=15810680959&password=123456
                 if (!TextUtils.isEmpty(zhuceZh.getText().toString()) && !TextUtils.isEmpty(zhucePwd.getText().toString())) {
 
+                    zhuceBtn.setBackgroundColor(Color.RED);        //信息都不为空时登录按钮为红色
+
                     // mvp请求注册的接口
                     presenter.getData(zhuceZh.getText().toString(),zhucePwd.getText().toString());
 
                 } else {
+
+                    zhuceBtn.setBackgroundColor(Color.LTGRAY);        //信息都为空时登录按钮为浅灰色
+
                     Toast.makeText(this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 }
                 break;

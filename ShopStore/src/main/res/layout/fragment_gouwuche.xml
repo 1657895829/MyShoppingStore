@@ -51,15 +51,26 @@
             android:layout_weight="1"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textColor="#e53e42"
-                android:id="@+id/total_price"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="0"
-                />
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:textSize="20sp"
+                    android:text="总价：￥"
+                    android:textColor="#e53e42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
+
+                <TextView
+                    android:textColor="#e53e42"
+                    android:id="@+id/total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="0" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/total_num"
                 android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.shop.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import java.util.Map;
  * 购物车适配器
  */
 public class SelectCartAdapter extends RecyclerView.Adapter<SelectCartAdapter.MyViewHolder> implements DeleteCartListener {
-
     private List<SelectCartBean.DataBean.ListBean> list;//大的集合
     Map<String,String> map = new HashMap<>();//装商家名字和id的集合
     Context context;
@@ -112,7 +112,15 @@ public class SelectCartAdapter extends RecyclerView.Adapter<SelectCartAdapter.My
         //控制商品的item_checkbox,,根据字段改变
         holder.item_checkbox.setChecked(list.get(position).isItem_check());
         holder.item_name.setText(list.get(position).getTitle());
-        holder.item_price.setText(list.get(position).getPrice() + "");
+        holder.item_desc.setText(list.get(position).getSubhead());
+        holder.item_price.setText("￥" + list.get(position).getBargainPrice() + "");
+        /**
+         * 文字线条的显示样式：
+         * getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中间横线（删除线）
+         */
+        holder.item_yuanjia.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中间横线（删除线）
+        holder.item_yuanjia.setText("￥" + list.get(position).getPrice());
+
         //调用customjiajian里面的方法设置 加减号中间的数字
         holder.customJiaJian.setEditText(list.get(position).getNum());
 
@@ -254,12 +262,13 @@ public class SelectCartAdapter extends RecyclerView.Adapter<SelectCartAdapter.My
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         private final CheckBox shop_checkbox;
         private final TextView shop_name;
         private final CheckBox item_checkbox;
         private final TextView item_name;
+        private final TextView item_yuanjia;
         private final TextView item_price;
+        private final TextView item_desc;
         private final CustomJiaJian customJiaJian;
         private final ImageView item_delete;
         private final ImageView item_face;
@@ -271,6 +280,8 @@ public class SelectCartAdapter extends RecyclerView.Adapter<SelectCartAdapter.My
             item_checkbox = (CheckBox) itemView.findViewById(R.id.item_checkbox);
             item_name = (TextView) itemView.findViewById(R.id.item_name);
             item_price = (TextView) itemView.findViewById(R.id.item_price);
+            item_yuanjia = (TextView) itemView.findViewById(R.id.item_yuanjia);
+            item_desc = (TextView) itemView.findViewById(R.id.item_desc);
             customJiaJian = (CustomJiaJian) itemView.findViewById(R.id.custom_jiajian);
             item_delete = (ImageView) itemView.findViewById(R.id.item_delete);
             item_face = (ImageView) itemView.findViewById(R.id.item_face);

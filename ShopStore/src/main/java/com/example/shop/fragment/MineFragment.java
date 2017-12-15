@@ -10,41 +10,59 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.shop.R;
 import com.example.shop.ZhiFuBao.PayDemoActivity;
 import com.example.shop.activity.LoginActivity;
 import com.example.shop.activity.RegActivity;
+import com.example.shop.adapter.MineAdapter;
+import com.example.shop.bean.DengluBean;
+import com.example.shop.bean.PersonInfoBean;
+import com.example.shop.bean.ShouyeLunBoBean;
+import com.example.shop.presenter.MyPresenter1;
 import com.example.shop.util.ImageUtils;
+import com.example.shop.view.ViewCallBack1;
 import com.facebook.drawee.view.SimpleDraweeView;
-
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static android.app.Activity.RESULT_OK;
 
 //我的fragment
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment implements ViewCallBack1 {
     protected static final int CHOOSE_PICTURE = 0;
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
     @Bind(R.id.wode_touxiang)
     SimpleDraweeView wodeTouxiang;
+    @Bind(R.id.hot_XRecyclerView)
+    XRecyclerView hot_XRecyclerView;
+    @Bind(R.id.denglu)
+    TextView denglu;
+    @Bind(R.id.zhuce)
+    TextView zhuce;
+    private MyPresenter1 presenter1;
+    private MineAdapter adapter;
+    private Handler handler = new Handler();
 
     @Nullable
     @Override
@@ -56,12 +74,80 @@ public class MineFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //调用P层 设置适配器
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
+        hot_XRecyclerView.setLayoutManager(manager);
+        adapter = new MineAdapter(getActivity());
+        hot_XRecyclerView.setAdapter(adapter);
+
+        presenter1 = new MyPresenter1(this);
+        presenter1.getLunBo();//获取数据
+
+        //XRecyclerview的上拉下拉方法
+        hot_XRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //在子线程内完成下拉加载数据
+                        presenter1.getLunBo();
+                        adapter.notifyDataSetChanged();
+                        hot_XRecyclerView.refreshComplete();
+                    }
+                }, 888);
+            }
+
+            @Override
+            public void onLoadMore() {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //在子线程内完成下拉加载数据
+                        presenter1.getLunBo();
+                        adapter.notifyDataSetChanged();
+                        hot_XRecyclerView.loadMoreComplete();
+                    }
+                }, 888);
+            }
+        });
+
+
+        //注册eventbus
+        EventBus.getDefault().register(this);
     }
 
-    @OnClick({R.id.wode_touxiang, R.id.denglu, R.id.zhuce,R.id.zhifu})
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onM(DengluBean dengluBean) {
+        // Toast.makeText(getActivity(), "dengluBean.getData().getUid():" + dengluBean.getData().getUsername(), Toast.LENGTH_SHORT).show();
+
+        //设置个人头像
+        wodeTouxiang.setImageResource(R.mipmap.ath);
+        denglu.setText(dengluBean.getData().getUsername());      //登录文字被用户名替换
+        zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onM(PersonInfoBean personInfoBean) {
+//
+//        //设置个人头像
+//        wodeTouxiang.setImageURI(personInfoBean.getData().getIcon());
+//    }
+
+    @Override
+    public void success(ShouyeLunBoBean shouyeLunBoBean) {
+        //添加适配器数据
+        adapter.addData(shouyeLunBoBean.getMiaosha().getList());
+    }
+
+    @Override
+    public void failure(Exception e) {
+        System.out.println("我的 看相似数据错误：" + e);
+    }
+
+    @OnClick({R.id.wode_touxiang, R.id.denglu, R.id.zhuce, R.id.zhifu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.wode_touxiang:    //点击选择头像
@@ -72,15 +158,31 @@ public class MineFragment extends Fragment {
                 Intent intent1 = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent1);
                 break;
+
             case R.id.zhuce://跳转注册页面
                 Intent intent2 = new Intent(getActivity(), RegActivity.class);
                 startActivity(intent2);
                 break;
+
             case R.id.zhifu://点击进行  第三方支付宝 支付
                 Intent intent = new Intent(getActivity(), PayDemoActivity.class);
                 startActivity(intent);
                 break;
         }
+    }
+
+    //销毁EventBus，取消注册
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().removeAllStickyEvents();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /**

@@ -19,11 +19,11 @@ import butterknife.ButterKnife;
 /**
  * 热点页面适配器
  */
-public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotViewHolder> {
+public class MineAdapter extends RecyclerView.Adapter<MineAdapter.HotViewHolder> {
     private List<ShouyeLunBoBean.MiaoshaBean.ListBeanX> list;
     private Context context;
 
-    public HotAdapter(Context context) {
+    public MineAdapter(Context context) {
         this.context = context;
     }
 
@@ -37,7 +37,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotViewHolder> {
 
     @Override
     public HotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.hot_adapter, null);
+        View view = View.inflate(context, R.layout.mine_adapter, null);
         return new HotViewHolder(view);
     }
 

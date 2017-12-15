@@ -1,19 +1,20 @@
 package com.example.shop.retrofit;
 
 import com.example.shop.bean.AddCartBean;
-import com.example.shop.bean.NewsBean;
 import com.example.shop.bean.DeleteBean;
 import com.example.shop.bean.DengluBean;
+import com.example.shop.bean.PersonInfoBean;
 import com.example.shop.bean.SearchBean;
 import com.example.shop.bean.SelectCartBean;
 import com.example.shop.bean.ZhuceBean;
 import java.util.Map;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -57,5 +58,9 @@ public interface GetDataInterface {
     @POST("/user/login")
     Call<DengluBean> denglu(@FieldMap Map<String,String> map);
 
+    //个人中心接口：
+    //https://www.zhaoapi.cn/user/getUserInfo?uid=71
+    @GET("/user/getUserInfo")
+    Observable<PersonInfoBean> person(@Query("uid") int uid);
 
 }
