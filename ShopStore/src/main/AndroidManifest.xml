@@ -9,10 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-<!--
-    沉浸式主题    android:theme="@style/SelfTheme"
--->
-
+    <!--     沉浸式主题    android:theme="@style/SelfTheme" -->
     <application
         android:name=".util.BaseApplication"
         android:allowBackup="true"
@@ -32,7 +29,7 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.XiangQingActivity" />
         <activity android:name=".activity.RegActivity" />
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".ZhiFuBao.PayDemoActivity" />
         <!-- alipay sdk begin -->
         <activity
@@ -41,8 +38,11 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
         <!-- alipay sdk end -->
+
+
+        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.PersonActivity"></activity>
     </application>
 
 </manifest>

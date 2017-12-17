@@ -1,6 +1,7 @@
 package com.example.shop.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.shop.MainActivity;
 import com.example.shop.R;
 import com.example.shop.bean.DengluBean;
 import com.example.shop.bean.PersonInfoBean;
@@ -31,12 +34,19 @@ public class LoginActivity extends AppCompatActivity implements LoginViewListene
     Button dengluBtn;
     private LoginPresenter presenter;
     private PersonPresenter dataPresenter;
+    private SharedPreferences.Editor edit;
+    private SharedPreferences config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deng_lu);
         ButterKnife.bind(this);
+
+        //shaerdpreferences 存取数据
+        config = getSharedPreferences("config", 0);
+        //拿到编辑对象
+        edit = config.edit();
 
         //调用p层
         presenter = new LoginPresenter(this);
@@ -60,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewListene
                 break;
 
             case R.id.denglu_btn:
-
                 Toast.makeText(this, "点击登录", Toast.LENGTH_SHORT).show();
                 if (!TextUtils.isEmpty(dengluZh.getText().toString()) && !TextUtils.isEmpty(dengluPwd.getText().toString())) {
 
@@ -85,10 +94,26 @@ public class LoginActivity extends AppCompatActivity implements LoginViewListene
 
         if (dengluBean.getMsg().equals("登录成功")) {
 
+            //获取用户id
+            int ui = dengluBean.getData().getUid();
+            String uid = String.valueOf(ui);
+            //sharedpreferences存值,记录已经登录
+            edit.putString("uid",uid);//将当前的uid存进去
+            edit.commit();
+            //打印输出一下 看看是否存进去
+            System.out.println("LoginActivity uid:"+config.getString("uid",null));
+
             //eventbus传值 登录信息
             EventBus.getDefault().post(dengluBean);
             finish();
 
+            //登录成功以后 跳转到首页页面,也就是 HomeActivity
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }else{
+            Toast.makeText(LoginActivity.this, dengluBean.getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 

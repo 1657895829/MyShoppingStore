@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -27,10 +28,11 @@ import android.widget.Toast;
 import com.example.shop.R;
 import com.example.shop.ZhiFuBao.PayDemoActivity;
 import com.example.shop.activity.LoginActivity;
+import com.example.shop.activity.PersonActivity;
 import com.example.shop.activity.RegActivity;
+import com.example.shop.activity.SettingActivity;
 import com.example.shop.adapter.MineAdapter;
 import com.example.shop.bean.DengluBean;
-import com.example.shop.bean.PersonInfoBean;
 import com.example.shop.bean.ShouyeLunBoBean;
 import com.example.shop.presenter.MyPresenter1;
 import com.example.shop.util.ImageUtils;
@@ -63,6 +65,8 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
     private MyPresenter1 presenter1;
     private MineAdapter adapter;
     private Handler handler = new Handler();
+    private SharedPreferences config;
+    private SharedPreferences.Editor edit;
 
     @Nullable
     @Override
@@ -76,6 +80,24 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //获取登录信息
+        //获取保存的用户id
+        config = getActivity().getSharedPreferences("config", 0);
+        edit = config.edit();
+
+        //进入页面判断是否上次是否登录
+        String uid = config.getString("uid", null);
+        if(uid == null){
+            wodeTouxiang.setImageResource(R.drawable.yhtx);
+            denglu.setText("未登录");
+            zhuce.setText("/注册");
+        }else{
+            wodeTouxiang.setImageResource(R.mipmap.ath);  //头像改变
+            denglu.setText("18631090582");               //头像下面的文字改变
+            zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+        }
+
         //调用P层 设置适配器
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         hot_XRecyclerView.setLayoutManager(manager);
@@ -121,12 +143,12 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onM(DengluBean dengluBean) {
-        // Toast.makeText(getActivity(), "dengluBean.getData().getUid():" + dengluBean.getData().getUsername(), Toast.LENGTH_SHORT).show();
-
-        //设置个人头像
-        wodeTouxiang.setImageResource(R.mipmap.ath);
-        denglu.setText(dengluBean.getData().getUsername());      //登录文字被用户名替换
-        zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+        //走到这里 说明成功登录了,改变头像的设置,改变点击头像和点击设置跳转的页面
+        if (dengluBean != null) {
+            wodeTouxiang.setImageResource(R.mipmap.ath);
+            denglu.setText(dengluBean.getData().getUsername());      //登录文字被用户名替换
+            zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+        }
     }
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -147,6 +169,31 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
         System.out.println("我的 看相似数据错误：" + e);
     }
 
+    //点击设置按钮,跳转至设置页面
+    @OnClick(R.id.setting)
+    public void onViewClicked() {
+        //1.如果已经登录,就跳到设置页面,2.如果没登录,就跳到登录页面
+        String uid = config.getString("uid", null);
+
+        if (uid == null) {   //没登录
+
+            //跳到登录页面
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+        } else {             //已经登录
+
+            wodeTouxiang.setImageResource(R.mipmap.ath);//头像改变
+            denglu.setText("18631090582");                         //头像下面的文字改变
+            zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+
+            //跳到设置页面
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            intent.putExtra("mobile", denglu.getText().toString());
+            startActivity(intent);
+        }
+
+    }
+
     @OnClick({R.id.wode_touxiang, R.id.denglu, R.id.zhuce, R.id.zhifu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -154,14 +201,44 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
                 showChoosePicDialog(view);
                 break;
 
-            case R.id.denglu://跳转登录页面
-                Intent intent1 = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent1);
+            case R.id.denglu:           //登录按钮
+                //1.如果已经登录,就跳到 个人资料页面.2.如果没登录,就跳到登录页面
+                String uid1 = config.getString("uid", null);
+
+                if (uid1 == null) {  //没登录
+                    Intent intent1 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent1);
+                }else {
+                    wodeTouxiang.setImageResource(R.mipmap.ath);     //头像改变
+                    denglu.setText("18631090582");                  //头像下面的文字改变
+                    zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+
+                    //跳转到个人资料页面
+                    Intent intent = new Intent(getActivity(), PersonActivity.class);
+                    intent.putExtra("username", denglu.getText().toString());
+                    startActivity(intent);
+                    break;
+                }
                 break;
 
-            case R.id.zhuce://跳转注册页面
-                Intent intent2 = new Intent(getActivity(), RegActivity.class);
-                startActivity(intent2);
+            case R.id.zhuce:        //注册按钮
+                //1.如果已经登录,就跳到 个人资料页面.2.如果没登录,就跳到注册页面
+                String uid = config.getString("uid", null);
+
+                if (uid == null) {  //没登录
+                    Intent intent1 = new Intent(getActivity(), RegActivity.class);
+                    startActivity(intent1);
+                }else {
+                    wodeTouxiang.setImageResource(R.mipmap.ath);     //头像改变
+                    denglu.setText("18631090582");                  //头像下面的文字改变
+                    zhuce.setVisibility(View.GONE);                  //注册文字隐藏
+
+                    //跳转到个人资料页面
+                    Intent intent = new Intent(getActivity(), PersonActivity.class);
+                    intent.putExtra("username", denglu.getText().toString());
+                    startActivity(intent);
+                    break;
+                }
                 break;
 
             case R.id.zhifu://点击进行  第三方支付宝 支付
@@ -183,6 +260,23 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    //每次进入页面都判断是否登录
+    @Override
+    public void onResume() {
+        super.onResume();
+        String uid = config.getString("uid", null);
+        if(uid == null){
+            //没登录
+            wodeTouxiang.setImageResource(R.drawable.yhtx);
+            denglu.setText("未登录");
+        }else{
+            //已登录
+            wodeTouxiang.setImageResource(R.mipmap.ath);//头像改变
+            denglu.setText("18631090582");               //头像下面的文字改变
+            zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+        }
     }
 
     /**
@@ -327,5 +421,4 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
             Toast.makeText(getActivity(), "需要存储权限", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

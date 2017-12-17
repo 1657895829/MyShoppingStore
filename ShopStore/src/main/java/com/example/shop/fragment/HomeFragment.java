@@ -1,6 +1,7 @@
 package com.example.shop.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.example.shop.R;
 import com.example.shop.activity.LoginActivity;
 import com.example.shop.activity.SearchActivity;
@@ -32,6 +34,8 @@ public class HomeFragment extends Fragment implements ViewCallBack1,LoginViewLis
     private HomeXRecyclerViewAdapter homeAdapter;
     private MyPresenter1 presenter1;
     private Handler handler = new Handler();
+    private SharedPreferences.Editor edit;
+    private SharedPreferences config;
 
     @Nullable
     @Override
@@ -44,6 +48,10 @@ public class HomeFragment extends Fragment implements ViewCallBack1,LoginViewLis
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //sharedpreferences存取数据
+        config = getActivity().getSharedPreferences("config", 0);
+        edit = config.edit();
 
         //调用P层
         homeAdapter = new HomeXRecyclerViewAdapter(getActivity(), getChildFragmentManager());
@@ -122,10 +130,17 @@ public class HomeFragment extends Fragment implements ViewCallBack1,LoginViewLis
                 Intent intent2 = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent2);
                 break;
-            case R.id.info:
-                //点击消息  跳转至登录账号页面
-                Intent intent3 = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent3);
+            case R.id.info:  //点击消息
+
+                //判断用户uid是否存在
+                String uid = config.getString("uid", null);
+
+                if (uid == null) {  //不存在就登录至登录账号页面
+                    Intent intent3 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent3);
+                }else {             //存在就提示
+                    Toast.makeText(getActivity(),"暂无消息哦",Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
