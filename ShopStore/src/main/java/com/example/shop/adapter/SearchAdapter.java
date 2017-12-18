@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.shop.R;
-import com.example.shop.activity.WebUrlActivity;
+import com.example.shop.activity.XiangQingActivity;
 import com.example.shop.bean.SearchBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
@@ -57,18 +57,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.search_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //将url传过去 访问详情页面
-                Intent intent = new Intent(context, WebUrlActivity.class);
-                intent.putExtra("url",list.get(position).getDetailUrl());
+                //传递商品数据将url传过去 访问详情页面
+                Intent intent = new Intent(context, XiangQingActivity.class);
+                intent.putExtra("pid", list.get(position).getPid() + "");
+                intent.putExtra("images", list.get(position).getImages());
+                intent.putExtra("bargainPrice", list.get(position).getBargainPrice() + "");
+                intent.putExtra("title", list.get(position).getTitle());
+                intent.putExtra("price", list.get(position).getPrice() + "");
                 context.startActivity(intent);
             }
         });
         holder.search_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //将url传过去 访问详情页面
-                Intent intent = new Intent(context, WebUrlActivity.class);
-                intent.putExtra("url",list.get(position).getDetailUrl());
+                //传递商品数据将url传过去 访问详情页面
+                Intent intent = new Intent(context, XiangQingActivity.class);
+                intent.putExtra("pid", list.get(position).getPid() + "");
+                intent.putExtra("images", list.get(position).getImages());
+                intent.putExtra("bargainPrice", list.get(position).getBargainPrice() + "");
+                intent.putExtra("title", list.get(position).getTitle());
+                intent.putExtra("price", list.get(position).getPrice() + "");
                 context.startActivity(intent);
             }
         });

@@ -88,9 +88,9 @@ public class XiangQingActivity extends AppCompatActivity implements AddCartViewL
     @OnClick({R.id.custom_fanhui, R.id.jiagou_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.custom_fanhui:
-                Intent intent = new Intent(XiangQingActivity.this, HomeActivity.class);
-                startActivity(intent);
+            case R.id.custom_fanhui:     //返回按钮，返回上一页面
+//                Intent intent = new Intent(XiangQingActivity.this, HomeActivity.class);
+//                startActivity(intent);
                 finish();
                 break;
             case R.id.jiagou_btn:

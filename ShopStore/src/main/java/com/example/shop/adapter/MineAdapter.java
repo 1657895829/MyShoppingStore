@@ -57,8 +57,47 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.HotViewHolder>
             }
         }
 
-        //点击按钮的点击事件
+        //参数数据的点击事件
         holder.btnHot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //传递商品数据
+                Intent intent = new Intent(context, XiangQingActivity.class);
+                intent.putExtra("pid", list.get(position).getPid() + "");
+                intent.putExtra("images", list.get(position).getImages());
+                intent.putExtra("bargainPrice", list.get(position).getBargainPrice() + "");
+                intent.putExtra("title", list.get(position).getTitle());
+                intent.putExtra("price", list.get(position).getPrice() + "");
+                context.startActivity(intent);
+            }
+        });
+        holder.hot_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //传递商品数据
+                Intent intent = new Intent(context, XiangQingActivity.class);
+                intent.putExtra("pid", list.get(position).getPid() + "");
+                intent.putExtra("images", list.get(position).getImages());
+                intent.putExtra("bargainPrice", list.get(position).getBargainPrice() + "");
+                intent.putExtra("title", list.get(position).getTitle());
+                intent.putExtra("price", list.get(position).getPrice() + "");
+                context.startActivity(intent);
+            }
+        });
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //传递商品数据
+                Intent intent = new Intent(context, XiangQingActivity.class);
+                intent.putExtra("pid", list.get(position).getPid() + "");
+                intent.putExtra("images", list.get(position).getImages());
+                intent.putExtra("bargainPrice", list.get(position).getBargainPrice() + "");
+                intent.putExtra("title", list.get(position).getTitle());
+                intent.putExtra("price", list.get(position).getPrice() + "");
+                context.startActivity(intent);
+            }
+        });
+        holder.priceHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //传递商品数据
