@@ -1,7 +1,6 @@
 package com.example.shop.util;
 
 import android.app.Activity;
-
 import java.util.Stack;
 
 /**
@@ -77,4 +76,5 @@ public class ActivityManager {
     public int size(){
         return activityStack.size();
     }
+
 }
