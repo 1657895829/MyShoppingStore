@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
+    android:padding="5dp"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -34,14 +34,14 @@
 
         <CheckBox
             android:id="@+id/item_checkbox"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/item_face"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
+            android:layout_width="118dp"
+            android:layout_height="118dp"
             android:src="@drawable/app_default"/>
 
         <LinearLayout
@@ -95,7 +95,7 @@
 
                 <com.example.shop.customview.CustomJiaJian
                     android:id="@+id/custom_jiajian"
-                    android:layout_marginLeft="32dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"

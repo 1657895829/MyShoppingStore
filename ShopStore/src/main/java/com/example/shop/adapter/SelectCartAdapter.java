@@ -14,6 +14,7 @@ import com.example.shop.bean.DeleteBean;
 import com.example.shop.bean.SelectCartBean;
 import com.example.shop.customview.CustomJiaJian;
 import com.example.shop.presenter.DeleteCartPresenter;
+import com.example.shop.util.ImageLoaderUtil;
 import com.example.shop.view.DeleteCartListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class SelectCartAdapter extends RecyclerView.Adapter<SelectCartAdapter.My
         //拆分images字段
         String[] split = list.get(position).getImages().split("\\|");
         //设置商品的图片
-        ImageLoader.getInstance().displayImage(split[0], holder.item_face);
+        ImageLoader.getInstance().displayImage(split[0], holder.item_face, ImageLoaderUtil.getDefaultOption());
         //控制商品的item_checkbox,,根据字段改变
         holder.item_checkbox.setChecked(list.get(position).isItem_check());
         holder.item_name.setText(list.get(position).getTitle());
