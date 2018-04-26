@@ -59,12 +59,7 @@ public class Hot_Child_Fragment extends Fragment {
         String data = bundle.getString("name", "top");
         encode = URLEncoder.encode(data);
 
-        //判断网络状态，异步加载数据
-        if (NetConnectionUtil.isNetConnectioned(getActivity())) {
-            getData(data);
-        } else {
-            NetConnectionUtil.setNetConnectionWork(getActivity());
-        }
+        getData(data);
 
         //XRecyclerview的上拉下拉方法
         hotChildXRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
