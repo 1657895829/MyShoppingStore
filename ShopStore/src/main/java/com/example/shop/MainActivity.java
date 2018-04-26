@@ -1,4 +1,5 @@
 package com.example.shop;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import java.util.TimerTask;
 //初始页面 使用自定义倒计时圆环view（也可直接使用倒计时）
 public class MainActivity extends Activity {
     private TextView timetext;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(android.os.Message msg) {
