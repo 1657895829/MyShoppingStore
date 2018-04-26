@@ -24,7 +24,7 @@
     <style name="line" parent="line">
         <item name="android:background">@color/colorWhite</item>
     </style>
-    <style name="line_vertical" parent="line_vertical">
+    <style name="line_vertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
     </style>
