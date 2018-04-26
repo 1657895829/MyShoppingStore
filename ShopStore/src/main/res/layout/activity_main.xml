@@ -4,7 +4,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/jd_logo">
+    android:background="@drawable/jingdong">
 
 <!--
     设置沉浸式    android:fitsSystemWindows="true"
@@ -22,13 +22,12 @@
 
     <com.example.shop.customview.CountDownButton
         android:layout_alignParentRight="true"
-        android:layout_height="66dp"
+        android:layout_height="56dp"
         android:id="@+id/countdown2"
-        app:progressLineWidth="6dp"
-        android:layout_width="72dp"
+        app:progressLineWidth="2dp"
+        android:layout_width="56dp"
         android:textColor="#f41b03"
-        android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:totalTime="5000"
         android:text="跳过" />
 

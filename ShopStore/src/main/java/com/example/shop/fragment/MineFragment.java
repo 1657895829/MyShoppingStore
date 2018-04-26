@@ -67,6 +67,7 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
     private Handler handler = new Handler();
     private SharedPreferences config;
     private SharedPreferences.Editor edit;
+    private String uid;
 
     @Nullable
     @Override
@@ -87,15 +88,16 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
         edit = config.edit();
 
         //进入页面判断是否上次是否登录
-        String uid = config.getString("uid", null);
+        uid = config.getString("uid", null);
         if(uid == null){
             wodeTouxiang.setImageResource(R.drawable.yhtx);
             denglu.setText("未登录");
             zhuce.setText("/注册");
         }else{
-            wodeTouxiang.setImageResource(R.mipmap.ath);  //头像改变
-            denglu.setText("18631090582");               //头像下面的文字改变
-            zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+            //头像下面的文字改变
+            denglu.setText("18631090582");
+            //注册文字隐藏
+            zhuce.setVisibility(View.GONE);
         }
 
         //调用P层 设置适配器
@@ -182,7 +184,6 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
             startActivity(intent);
         } else {             //已经登录
 
-            wodeTouxiang.setImageResource(R.mipmap.ath);//头像改变
             denglu.setText("18631090582");                         //头像下面的文字改变
             zhuce.setVisibility(View.GONE);                         //注册文字隐藏
 
@@ -197,21 +198,29 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
     @OnClick({R.id.wode_touxiang, R.id.denglu, R.id.zhuce, R.id.zhifu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.wode_touxiang:    //点击选择头像
-                showChoosePicDialog(view);
+            case R.id.wode_touxiang:
+                if(uid != null) {
+                    //点击选择头像
+                    showChoosePicDialog(view);
+                }else {
+                    wodeTouxiang.setImageResource(R.drawable.yhtx);
+                }
                 break;
 
-            case R.id.denglu:           //登录按钮
+            //登录按钮
+            case R.id.denglu:
                 //1.如果已经登录,就跳到 个人资料页面.2.如果没登录,就跳到登录页面
                 String uid1 = config.getString("uid", null);
 
-                if (uid1 == null) {  //没登录
+                //没登录
+                if (uid1 == null) {
                     Intent intent1 = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent1);
                 }else {
-                    wodeTouxiang.setImageResource(R.mipmap.ath);     //头像改变
-                    denglu.setText("18631090582");                  //头像下面的文字改变
-                    zhuce.setVisibility(View.GONE);                         //注册文字隐藏
+                    //头像下面的文字改变
+                    denglu.setText("18631090582");
+                    //注册文字隐藏
+                    zhuce.setVisibility(View.GONE);
 
                     //跳转到个人资料页面
                     Intent intent = new Intent(getActivity(), PersonActivity.class);
@@ -229,7 +238,6 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
                     Intent intent1 = new Intent(getActivity(), RegActivity.class);
                     startActivity(intent1);
                 }else {
-                    wodeTouxiang.setImageResource(R.mipmap.ath);     //头像改变
                     denglu.setText("18631090582");                  //头像下面的文字改变
                     zhuce.setVisibility(View.GONE);                  //注册文字隐藏
 
@@ -244,6 +252,9 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
             case R.id.zhifu://点击进行  第三方支付宝 支付
                 Intent intent = new Intent(getActivity(), PayDemoActivity.class);
                 startActivity(intent);
+                break;
+
+            default:
                 break;
         }
     }
@@ -273,7 +284,6 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
             denglu.setText("未登录");
         }else{
             //已登录
-            wodeTouxiang.setImageResource(R.mipmap.ath);//头像改变
             denglu.setText("18631090582");               //头像下面的文字改变
             zhuce.setVisibility(View.GONE);                         //注册文字隐藏
         }
@@ -301,6 +311,9 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
                     case TAKE_PICTURE: // 拍照
                         takePicture();
                         break;
+
+                    default:
+                            break;
                 }
             }
         });
@@ -349,6 +362,9 @@ public class MineFragment extends Fragment implements ViewCallBack1 {
                     if (data != null) {
                         setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
                     }
+                    break;
+
+                default:
                     break;
             }
         }

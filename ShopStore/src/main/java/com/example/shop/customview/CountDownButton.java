@@ -21,10 +21,10 @@ public class CountDownButton extends Button implements View.OnClickListener{
     private Context mContext ;
     private onCountClickListener mCountClickListener ;
 
-    private static final int DEFAULT_PROGRESS_BG_COLOR = Color.GREEN;
+    private static final int DEFAULT_PROGRESS_BG_COLOR = Color.WHITE;
     private static final int DEFAULT_PROGRESS_COLOR = Color.BLUE ;
     private static final float DEFAULT_PROGRESS_LINE_WIDTH = 2 ;
-    private static final int DEFAULT_CIRCLE_BG_COLOR = Color.GREEN ;
+    private static final int DEFAULT_CIRCLE_BG_COLOR = Color.WHITE ;
     private static final int DEFAULT_TOTAL_TIME = 5000 ;
     //定义刷新间隔时长ms
     private static final int DELAY = 360 ;
